@@ -1,6 +1,7 @@
 package com.syz.kotlinsimple.api
 
 import com.syz.kotlinsimple.mvp.model.bean.BookBean
+import com.syz.kotlinsimple.mvp.model.bean.PlanBean
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -15,4 +16,7 @@ interface ApiService {
 
     @GET("Book")
     fun getBook(@Query("id") id: String): Observable<BookBean>
+
+    @GET("plans/24772")
+    fun getPlan(): Observable<PlanBean>
 }

@@ -1,6 +1,7 @@
 package com.syz.kotlinsimple.mvp.model
 
 import com.syz.kotlinsimple.mvp.model.bean.BookBean
+import com.syz.kotlinsimple.mvp.model.bean.PlanBean
 import com.syz.kotlinsimple.net.RetrofitManager
 import com.syz.kotlinsimple.rx.scheduler.SchedulerUtils
 import io.reactivex.Observable
@@ -18,6 +19,11 @@ class BookModel {
      */
     fun requestBookData(string: String): Observable<BookBean> {
         return RetrofitManager.service.getBook(string)
+            .compose(SchedulerUtils.ioToMain())
+    }
+
+    fun requestPlanData(string: String): Observable<PlanBean> {
+        return RetrofitManager.service.getPlan()
             .compose(SchedulerUtils.ioToMain())
     }
 }

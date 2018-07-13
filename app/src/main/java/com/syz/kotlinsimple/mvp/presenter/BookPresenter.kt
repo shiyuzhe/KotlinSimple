@@ -4,6 +4,7 @@ import com.syz.kotlinsimple.base.BasePresenter
 import com.syz.kotlinsimple.mvp.contract.BookContract
 import com.syz.kotlinsimple.mvp.model.BookModel
 import com.syz.kotlinsimple.mvp.model.bean.BookBean
+import com.syz.kotlinsimple.mvp.model.bean.PlanBean
 import com.syz.kotlinsimple.net.exception.ExceptionHandle
 
 
@@ -29,6 +30,21 @@ class BookPresenter : BasePresenter<BookContract.View>(), BookContract.Presenter
         }
     }
 
+
+    override fun requestPlanData(string: String) {
+        // 检测是否绑定 View
+        checkViewAttached()
+        val disposable = bookModel.requestPlanData(string).subscribe({ bookBean: PlanBean
+            ->
+            mRootView?.setPlanData(bookBean)
+        }, { t: Throwable ->
+            mRootView?.showError(ExceptionHandle.handleException(t), ExceptionHandle.errorCode)
+        }
+        )
+        if (disposable != null) {
+            addSubscription(disposable)
+        }
+    }
     private val bookModel: BookModel by lazy {
         BookModel()
     }

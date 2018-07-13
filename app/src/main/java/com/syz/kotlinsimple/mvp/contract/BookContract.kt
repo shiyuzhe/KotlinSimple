@@ -3,6 +3,7 @@ package com.syz.kotlinsimple.mvp.contract
 import com.syz.kotlinsimple.base.IBaseView
 import com.syz.kotlinsimple.base.IPresenter
 import com.syz.kotlinsimple.mvp.model.bean.BookBean
+import com.syz.kotlinsimple.mvp.model.bean.PlanBean
 
 
 /**
@@ -20,7 +21,7 @@ interface BookContract {
          */
         fun setBookData(bookBean: BookBean)
 
-
+        fun setPlanData(planBean: PlanBean)
         /**
          * 显示错误信息
          */
@@ -37,6 +38,7 @@ interface BookContract {
         fun requestBookData(string: String)
 
 
+        fun requestPlanData(string: String)
     }
 
 }

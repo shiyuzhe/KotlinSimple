@@ -5,10 +5,15 @@ import com.syz.kotlinsimple.R
 import com.syz.kotlinsimple.base.BaseActivity
 import com.syz.kotlinsimple.mvp.contract.BookContract
 import com.syz.kotlinsimple.mvp.model.bean.BookBean
+import com.syz.kotlinsimple.mvp.model.bean.PlanBean
 import com.syz.kotlinsimple.mvp.presenter.BookPresenter
 import kotlinx.android.synthetic.main.act_book.*
 
 class ActBook : BaseActivity(), BookContract.View {
+    override fun setPlanData(planBean: PlanBean) {
+        textView2.text = planBean.toString()
+        Logger.e("bookBean:$planBean")
+    }
 
     private val mPresenter by lazy { BookPresenter() }
 
@@ -19,7 +24,10 @@ class ActBook : BaseActivity(), BookContract.View {
 
     override fun initView() {
         mPresenter.attachView(this)
-        textView2.setOnClickListener { mPresenter.requestBookData("237475019") }
+        textView2.setOnClickListener {
+            //            mPresenter.requestBookData("237475019")
+            mPresenter.requestPlanData("24772")
+        }
 
     }
 
