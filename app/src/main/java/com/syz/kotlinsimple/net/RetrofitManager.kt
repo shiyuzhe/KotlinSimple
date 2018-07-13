@@ -59,9 +59,7 @@ object RetrofitManager {
             val requestBuilder = originalRequest.newBuilder()
                 // Provide your custom header here
 //                .header("token", token)
-                .header("Connection", HEADER_CONNECTION)
-                .header("api_key", "mingjiazongxueguan")
-                .header("authorization", "")// TOKEN
+
                 .method(originalRequest.method(), originalRequest.body())
             val request = requestBuilder.build()
             chain.proceed(request)
