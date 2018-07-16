@@ -1,5 +1,6 @@
 package com.syz.kotlinsimple.net
 
+import com.orhanobut.logger.Logger
 import com.syz.kotlinsimple.MyApplication
 import com.syz.kotlinsimple.api.ApiService
 import com.syz.kotlinsimple.api.UriConstant
@@ -29,8 +30,8 @@ object RetrofitManager {
     val service: ApiService by lazy { getRetrofit()!!.create(ApiService::class.java) }
 
     private var token: String by Preference(
-        "token",
-        ""
+            "token",
+            ""
     )
 
     /**
@@ -41,10 +42,10 @@ object RetrofitManager {
             val originalRequest = chain.request()
             val request: Request
             val modifiedUrl = originalRequest.url().newBuilder()
-                // Provide your custom parameter here
-                .addQueryParameter("zxg", "mingbai")
-                .addQueryParameter("zxg", "hehe")
-                .build()
+                    // Provide your custom parameter here
+                    .addQueryParameter("zxg", "mingbai")
+                    .addQueryParameter("zxg", "hehe")
+                    .build()
             request = originalRequest.newBuilder().url(modifiedUrl).build()
             chain.proceed(request)
         }
@@ -57,10 +58,12 @@ object RetrofitManager {
         return Interceptor { chain ->
             val originalRequest = chain.request()
             val requestBuilder = originalRequest.newBuilder()
-                // Provide your custom header here
-//                .header("token", token)
-
-                .method(originalRequest.method(), originalRequest.body())
+                    // Provide your custom header here
+                    .header("token", token)
+                    .header("Connection", HEADER_CONNECTION)
+                    .header("api_key", "mingjiazongxueguan")
+                    .header("authorization", "")// TOKEN
+                    .method(originalRequest.method(), originalRequest.body())
             val request = requestBuilder.build()
             chain.proceed(request)
         }
@@ -74,24 +77,24 @@ object RetrofitManager {
             var request = chain.request()
             if (!NetworkUtil.isNetworkAvailable(MyApplication.context)) {
                 request = request.newBuilder()
-                    .cacheControl(CacheControl.FORCE_CACHE)
-                    .build()
+                        .cacheControl(CacheControl.FORCE_CACHE)
+                        .build()
             }
             val response = chain.proceed(request)
             if (NetworkUtil.isNetworkAvailable(MyApplication.context)) {
                 val maxAge = 0
                 // 有网络时 设置缓存超时时间0个小时 ,意思就是不读取缓存数据,只对get有用,post没有缓冲
                 response.newBuilder()
-                    .header("Cache-Control", "public, max-age=" + maxAge)
-                    .removeHeader("Retrofit")// 清除头信息，因为服务器如果不支持，会返回一些干扰信息，不清除下面无法生效
-                    .build()
+                        .header("Cache-Control", "public, max-age=" + maxAge)
+                        .removeHeader("Retrofit")// 清除头信息，因为服务器如果不支持，会返回一些干扰信息，不清除下面无法生效
+                        .build()
             } else {
                 // 无网络时，设置超时为4周  只对get有用,post没有缓冲
                 val maxStale = 60 * 60 * 24 * 28
                 response.newBuilder()
-                    .header("Cache-Control", "public, only-if-cached, max-stale=" + maxStale)
-                    .removeHeader("nyn")
-                    .build()
+                        .header("Cache-Control", "public, only-if-cached, max-stale=" + maxStale)
+                        .removeHeader("nyn")
+                        .build()
             }
             response
         }
@@ -109,25 +112,24 @@ object RetrofitManager {
                     //设置 请求的缓存的大小跟位置
                     val cacheFile = File(MyApplication.context.cacheDir, "cache")
                     val cache = Cache(cacheFile, 1024 * 1024 * 50) //50Mb 缓存的大小
-
                     client = OkHttpClient.Builder()
 //                        .addInterceptor(addQueryParameterInterceptor())  //参数添加
-//                        .addInterceptor(addHeaderInterceptor()) // token过滤
-//                            .addInterceptor(addCacheInterceptor())
-                        .addInterceptor(httpLoggingInterceptor) //日志,所有的请求响应度看到
-                        .cache(cache)  //添加缓存
-                        .connectTimeout(60L, TimeUnit.SECONDS)
-                        .readTimeout(60L, TimeUnit.SECONDS)
-                        .writeTimeout(60L, TimeUnit.SECONDS)
-                        .build()
+                            .addInterceptor(addHeaderInterceptor()) // token过滤
+                            .addInterceptor(addCacheInterceptor())
+                            .addInterceptor(httpLoggingInterceptor) //日志,所有的请求响应度看到
+                            .cache(cache)  //添加缓存
+                            .connectTimeout(60L, TimeUnit.SECONDS)
+                            .readTimeout(60L, TimeUnit.SECONDS)
+                            .writeTimeout(60L, TimeUnit.SECONDS)
+                            .build()
 
                     // 获取retrofit的实例
                     retrofit = Retrofit.Builder()
-                        .baseUrl(UriConstant.BASE_URL_DUSHUREN)
-                        .client(client!!)
-                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build()
+                            .baseUrl(UriConstant.BASE_URL_MINGBAI)
+                            .client(client!!)
+                            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .build()
                 }
             }
         }

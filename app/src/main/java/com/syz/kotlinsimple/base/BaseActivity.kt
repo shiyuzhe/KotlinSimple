@@ -2,6 +2,7 @@ package com.syz.kotlinsimple.base
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 
 
 abstract class BaseActivity : AppCompatActivity() {
@@ -18,4 +19,9 @@ abstract class BaseActivity : AppCompatActivity() {
     abstract fun initData()
 
     abstract fun initView()
+
+    fun BaseActivity.toast(message: CharSequence = "null", duration: Int = Toast.LENGTH_SHORT) {
+        Toast.makeText(this, message, duration).show()
+    }
+
 }

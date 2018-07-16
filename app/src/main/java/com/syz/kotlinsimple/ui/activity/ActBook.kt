@@ -1,5 +1,6 @@
 package com.syz.kotlinsimple.ui.activity
 
+import android.content.Intent
 import com.orhanobut.logger.Logger
 import com.syz.kotlinsimple.R
 import com.syz.kotlinsimple.base.BaseActivity
@@ -12,6 +13,7 @@ import kotlinx.android.synthetic.main.act_book.*
 class ActBook : BaseActivity(), BookContract.View {
     override fun setPlanData(planBean: PlanBean) {
         textView2.text = planBean.toString()
+        toast(planBean.toString())
         Logger.e("bookBean:$planBean")
     }
 
@@ -28,11 +30,15 @@ class ActBook : BaseActivity(), BookContract.View {
             //            mPresenter.requestBookData("237475019")
             mPresenter.requestPlanData("24772")
         }
+        actTwo.setOnClickListener {
+            startActivity(Intent(this, ActTwo::class.java))
+        }
 
     }
 
     override fun setBookData(bookBean: BookBean) {
         textView2.text = bookBean.toString()
+
         Logger.e("bookBean:$bookBean")
     }
 
@@ -46,5 +52,10 @@ class ActBook : BaseActivity(), BookContract.View {
 
     override fun dismissLoading() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mPresenter.detachView()
     }
 }
