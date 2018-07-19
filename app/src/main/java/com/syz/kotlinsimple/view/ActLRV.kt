@@ -12,6 +12,10 @@ import kotlinx.android.synthetic.main.act_lrv.*
 import java.util.ArrayList
 
 class ActLRV : BaseActivity() {
+    override fun start() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     private var adapter: LRecyclerViewAdapter? = null
     private var strs: MutableList<String> = ArrayList()
     override fun layoutId(): Int = R.layout.act_lrv

@@ -5,6 +5,8 @@ import android.content.Context
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 import com.orhanobut.logger.PrettyFormatStrategy
+import com.squareup.leakcanary.LeakCanary
+import com.squareup.leakcanary.RefWatcher
 import kotlin.properties.Delegates
 
 /**
@@ -14,6 +16,7 @@ import kotlin.properties.Delegates
  * Desc:
  */
 class MyApplication : Application() {
+    private var refWatcher: RefWatcher? = null
 
     companion object {
 
@@ -21,12 +24,25 @@ class MyApplication : Application() {
 
         var context: Context by Delegates.notNull()
             private set
+
+        fun getRefWatcher(context: Context): RefWatcher? {
+            val myApplication = context.applicationContext as MyApplication
+            return myApplication.refWatcher
+        }
+
     }
 
     override fun onCreate() {
         super.onCreate()
         context = applicationContext
+        refWatcher = setupLeakCanary()
         initConfig()
+    }
+
+    private fun setupLeakCanary(): RefWatcher {
+        return if (LeakCanary.isInAnalyzerProcess(this)) {
+            RefWatcher.DISABLED
+        } else LeakCanary.install(this)
     }
 
     /**

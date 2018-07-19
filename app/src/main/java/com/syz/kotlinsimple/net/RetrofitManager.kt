@@ -59,7 +59,9 @@ object RetrofitManager {
             val requestBuilder = originalRequest.newBuilder()
                 // Provide your custom header here
 //                .header("token", token)
-
+                .header("Connection", HEADER_CONNECTION)
+                .header("api_key", "mingjiazongxueguan")
+                .header("authorization", "")// TOKEN
                 .method(originalRequest.method(), originalRequest.body())
             val request = requestBuilder.build()
             chain.proceed(request)
@@ -112,7 +114,7 @@ object RetrofitManager {
 
                     client = OkHttpClient.Builder()
 //                        .addInterceptor(addQueryParameterInterceptor())  //参数添加
-//                        .addInterceptor(addHeaderInterceptor()) // token过滤
+                        .addInterceptor(addHeaderInterceptor()) // token过滤
 //                            .addInterceptor(addCacheInterceptor())
                         .addInterceptor(httpLoggingInterceptor) //日志,所有的请求响应度看到
                         .cache(cache)  //添加缓存
@@ -123,7 +125,7 @@ object RetrofitManager {
 
                     // 获取retrofit的实例
                     retrofit = Retrofit.Builder()
-                        .baseUrl(UriConstant.BASE_URL_DUSHUREN)
+                        .baseUrl(UriConstant.BASE_URL_MINGBAI)
                         .client(client!!)
                         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .addConverterFactory(GsonConverterFactory.create())

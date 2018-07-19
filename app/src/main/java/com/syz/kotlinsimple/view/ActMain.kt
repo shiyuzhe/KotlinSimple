@@ -6,6 +6,9 @@ import com.syz.kotlinsimple.base.BaseActivity
 import kotlinx.android.synthetic.main.act_main.*
 
 class ActMain : BaseActivity() {
+    override fun start() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
 
     override fun layoutId(): Int = R.layout.act_main

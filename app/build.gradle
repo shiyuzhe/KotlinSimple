@@ -24,14 +24,11 @@ android {
 }
 
 dependencies {
-
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    implementation project(':LRecyclerview_library')
-
     implementation rootProject.ext.supportLibs
     // 网络请求库
     implementation rootProject.ext.networkLibs
@@ -39,7 +36,13 @@ dependencies {
     implementation rootProject.ext.rxJavaLibs
     implementation rootProject.ext.otherLibs
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-
     //Logger
     implementation 'com.orhanobut:logger:2.1.1'
+    //leakCanary
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+
+
+    implementation project(':LRecyclerview_library')
+    implementation project(':multiple-status-view')
 }

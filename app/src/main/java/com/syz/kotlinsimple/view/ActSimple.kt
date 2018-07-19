@@ -7,6 +7,10 @@ import com.syz.kotlinsimple.base.BaseActivity
  * 快速上手Kotlin
  */
 class ActSimple : BaseActivity() {
+    override fun start() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun layoutId(): Int = R.layout.act_simple
 
     override fun initData() {

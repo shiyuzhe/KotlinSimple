@@ -12,6 +12,10 @@ import kotlinx.android.synthetic.main.act_view.*;
 import java.util.ArrayList
 
 class ActView : BaseActivity() {
+    override fun start() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     internal var strs: MutableList<String> = ArrayList()
 
     override fun layoutId(): Int = R.layout.act_view
