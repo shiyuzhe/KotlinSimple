@@ -11,9 +11,13 @@ import com.syz.kotlinsimple.mvp.presenter.BookPresenter
 import kotlinx.android.synthetic.main.act_book.*
 
 class ActBook : BaseActivity(), BookContract.View {
+    override fun start() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun setPlanData(planBean: PlanBean) {
         textView2.text = planBean.toString()
-        toast(planBean.toString())
+//        toast(planBean.toString())
         Logger.e("bookBean:$planBean")
     }
 
