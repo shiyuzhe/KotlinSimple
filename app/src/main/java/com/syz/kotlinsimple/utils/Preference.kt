@@ -10,19 +10,22 @@ import kotlin.reflect.KProperty
 /**
  * Created by xuhao on 2017/12/11.
  * desc:kotlin委托属性+SharedPreference实例
+ * 代理
  */
 class Preference<T>(val name:String, private val default:T) {
 
 
+    //伴生对象
     companion object {
         private val file_name = "kotlin_mvp_file"
     }
 
+    //延迟加载
     private val prefs: SharedPreferences by lazy {
         MyApplication.context.getSharedPreferences(file_name, Context.MODE_PRIVATE)
     }
 
-
+    //https://www.jianshu.com/p/c6a73b8f1e07
     operator fun getValue(thisRef: Any?, property: KProperty<*>): T {
         return getSharedPreferences(name, default)
     }
