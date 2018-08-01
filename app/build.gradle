@@ -43,6 +43,9 @@ dependencies {
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
 
 
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.31'
+
+
     implementation project(':LRecyclerview_library')
     implementation project(':multiple-status-view')
 }

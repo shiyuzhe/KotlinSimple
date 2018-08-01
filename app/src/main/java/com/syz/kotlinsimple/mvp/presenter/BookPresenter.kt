@@ -30,14 +30,16 @@ class BookPresenter : BasePresenter<BookContract.View>(), BookContract.Presenter
         }
     }
 
-
     override fun requestPlanData(string: String) {
         // 检测是否绑定 View
         checkViewAttached()
+        mRootView?.showLoading()
         val disposable = bookModel.requestPlanData(string).subscribe({ bookBean: PlanBean
             ->
+            mRootView?.dismissLoading()
             mRootView?.setPlanData(bookBean)
         }, { t: Throwable ->
+            mRootView?.dismissLoading()
             mRootView?.showError(ExceptionHandle.handleException(t), ExceptionHandle.errorCode)
         }
         )
@@ -45,6 +47,7 @@ class BookPresenter : BasePresenter<BookContract.View>(), BookContract.Presenter
             addSubscription(disposable)
         }
     }
+
     private val bookModel: BookModel by lazy {
         BookModel()
     }

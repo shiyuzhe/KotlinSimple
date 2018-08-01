@@ -1,9 +1,12 @@
 package com.syz.kotlinsimple.api
 
 import com.syz.kotlinsimple.mvp.model.bean.BookBean
+import com.syz.kotlinsimple.mvp.model.bean.BookListBean
 import com.syz.kotlinsimple.mvp.model.bean.PlanBean
 import io.reactivex.Observable
+import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Headers
 import retrofit2.http.Query
 
 /**
@@ -19,4 +22,11 @@ interface ApiService {
 
     @GET("plans/24772")
     fun getPlan(): Observable<PlanBean>
+
+    @GET("Book")
+    fun getBookNoRX(@Query("id") id: String): Call<BookBean>
+
+//    @Headers("Cache-Control : public, max-age = 3600")
+    @GET("booklists")
+    fun getBookList(@Query("id") id: String): Observable<ArrayList<BookListBean>>
 }

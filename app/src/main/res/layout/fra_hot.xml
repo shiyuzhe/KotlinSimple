@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.classic.common.MultipleStatusView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/actBook"
+    android:id="@+id/fraHot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundColor"
@@ -10,23 +10,11 @@
     app:loadingView="@layout/layout_loading_view"
     app:noNetworkView="@layout/layout_network_view">
 
-    <TextView
-        android:id="@+id/textView2"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/mRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:padding="20dp"
-        android:text="TextView" />
-
-    <TextView
-        android:id="@+id/actTwo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
-        android:layout_marginTop="8dp"
-        android:gravity="center"
-        android:padding="40dp"
-        android:text="TextView" />
-
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="51dp"
+        />
 </com.classic.common.MultipleStatusView>

@@ -1,5 +1,6 @@
 package com.syz.kotlinsimple.net
 
+import com.orhanobut.logger.Logger
 import com.syz.kotlinsimple.MyApplication
 import com.syz.kotlinsimple.api.ApiService
 import com.syz.kotlinsimple.api.UriConstant
@@ -110,13 +111,15 @@ object RetrofitManager {
 
                     //设置 请求的缓存的大小跟位置
                     val cacheFile = File(MyApplication.context.cacheDir, "cache")
+                    Logger.e(cacheFile.absolutePath)
                     val cache = Cache(cacheFile, 1024 * 1024 * 50) //50Mb 缓存的大小
 
                     client = OkHttpClient.Builder()
 //                        .addInterceptor(addQueryParameterInterceptor())  //参数添加
                         .addInterceptor(addHeaderInterceptor()) // token过滤
-//                            .addInterceptor(addCacheInterceptor())
+                        .addInterceptor(addCacheInterceptor())
                         .addInterceptor(httpLoggingInterceptor) //日志,所有的请求响应度看到
+                        .addNetworkInterceptor(addCacheInterceptor())
                         .cache(cache)  //添加缓存
                         .connectTimeout(60L, TimeUnit.SECONDS)
                         .readTimeout(60L, TimeUnit.SECONDS)
