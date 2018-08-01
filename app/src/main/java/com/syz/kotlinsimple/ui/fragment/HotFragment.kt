@@ -30,8 +30,9 @@ class HotFragment : BaseFragment(), BookListContract.View {
     private var mBookListList = ArrayList<BookListBean>()
     //    private val mAdapter by lazy { HotAdapters(context!!, mBookListList, R.layout.item_hot) }
 //    private val hotAdapters2 by lazy { HotAdapters2(context!!, mBookListList, MultiHotAdapter()) }
-//    private val adapter1 by lazy { Adapter1(context!!, mBookListList) }
+//    private val adapter1 by lazy { Adapter12(context!!, mBookListList) }
     private val adapter by lazy { QuickAdapter(mBookListList) }
+    var count = 1 //for loadMore
 
     companion object {
         fun getInstance(): HotFragment {
@@ -95,11 +96,11 @@ class HotFragment : BaseFragment(), BookListContract.View {
         mPresenter.requestBookListData("1")
     }
 
-    var count = 1
 
     override fun setBookListData(bookListBeans: ArrayList<BookListBean>) {
         loadingMore = false
         mBookListList = bookListBeans
+//        adapter1.setData(mBookListList)
         adapter.replaceData(mBookListList)
         adapter.notifyDataSetChanged()
     }

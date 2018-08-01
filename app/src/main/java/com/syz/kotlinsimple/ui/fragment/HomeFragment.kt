@@ -54,7 +54,7 @@ class HomeFragment : BaseFragment(), BookContract.View {
     override fun lazyLoad() {
         val date = Date()
         Logger.e("HomeFragment：当前事件：${date.minutes}分${date.seconds}秒")
-        mPresenter.requestPlanData("24772")
+//        mPresenter.requestPlanData("24772")
     }
 
     override fun showError(msg: String, errorCode: Int) {

@@ -16,13 +16,11 @@ import com.syz.kotlinsimple.view.recyclerview.ViewHolder
  * 邮箱:18091664559@163.com
  * Desc:
  */
-class Adapter1(
+class Adapter12(
     context: Context,
     beans: ArrayList<BookListBean>
 ) : CommonMultiAdapters<BookListBean>(context, beans, Type.get()) {
-//    override fun getType(): MultipleType<BookListBean> {
-//        return Type.get()
-//    }
+
 
 
     override fun bindData(holder: ViewHolder, data: BookListBean, position: Int) {
@@ -48,12 +46,13 @@ class Adapter1(
             val instance = Type()
         }
 
-        override fun getLayoutId(item: BookListBean, position: Int): Int = when (position) {
-            1 -> R.layout.item_hot
-            else -> R.layout.item_str
+        override fun getLayoutId(item: BookListBean, position: Int): Int {
+            if (position==1){
+                return R.layout.item_str
+            }else{
+                return R.layout.item_hot
+            }
         }
-
     }
-
 
 }

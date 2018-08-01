@@ -26,7 +26,7 @@ interface ApiService {
     @GET("Book")
     fun getBookNoRX(@Query("id") id: String): Call<BookBean>
 
-//    @Headers("Cache-Control : public, max-age = 3600")
+    @Headers("Cache-Control:public, max-age=30")
     @GET("booklists")
     fun getBookList(@Query("id") id: String): Observable<ArrayList<BookListBean>>
 }

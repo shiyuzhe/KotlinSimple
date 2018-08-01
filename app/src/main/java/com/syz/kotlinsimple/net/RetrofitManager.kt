@@ -65,6 +65,9 @@ object RetrofitManager {
                 .header("authorization", "")// TOKEN
                 .method(originalRequest.method(), originalRequest.body())
             val request = requestBuilder.build()
+
+
+
             chain.proceed(request)
         }
     }
@@ -75,28 +78,45 @@ object RetrofitManager {
     private fun addCacheInterceptor(): Interceptor {
         return Interceptor { chain ->
             var request = chain.request()
-            if (!NetworkUtil.isNetworkAvailable(MyApplication.context)) {
+            val isConnected = NetworkUtil.isNetworkAvailable(MyApplication.context)
+            if (!isConnected) {
                 request = request.newBuilder()
                     .cacheControl(CacheControl.FORCE_CACHE)
                     .build()
             }
             val response = chain.proceed(request)
-            if (NetworkUtil.isNetworkAvailable(MyApplication.context)) {
-                val maxAge = 0
-                // 有网络时 设置缓存超时时间0个小时 ,意思就是不读取缓存数据,只对get有用,post没有缓冲
-                response.newBuilder()
-                    .header("Cache-Control", "public, max-age=" + maxAge)
-                    .removeHeader("Retrofit")// 清除头信息，因为服务器如果不支持，会返回一些干扰信息，不清除下面无法生效
+            return@Interceptor when(isConnected){
+                true -> response.newBuilder()
+                    .header("Cache-Control", "public, max-age=" + 30)
+                    .removeHeader("Pragma")// 清除头信息，因为服务器如果不支持，会返回一些干扰信息，不清除下面无法生效
                     .build()
-            } else {
-                // 无网络时，设置超时为4周  只对get有用,post没有缓冲
-                val maxStale = 60 * 60 * 24 * 28
-                response.newBuilder()
-                    .header("Cache-Control", "public, only-if-cached, max-stale=" + maxStale)
-                    .removeHeader("nyn")
-                    .build()
+                false ->
+                    response.newBuilder()
+                        .header("Cache-Control", "public, only-if-cached, max-stale=" + 60 * 60 * 24 * 28)
+                        .removeHeader("Pragma")
+                        .build()
             }
-            response
+//            if (isConnected) {
+//                val maxAge = 0
+//                // 有网络时 设置缓存超时时间0个小时 ,意思就是不读取缓存数据,只对get有用,post没有缓冲
+//                response.newBuilder()
+//                    .header("Cache-Control", "public, max-age=" + maxAge)
+//                    .removeHeader("Pragma")// 清除头信息，因为服务器如果不支持，会返回一些干扰信息，不清除下面无法生效
+//                    .build()
+//                return@Interceptor response
+//            } else {
+//                // 无网络时，设置超时为4周  只对get有用,post没有缓冲
+//                Logger.e("netWorkError")
+//                val maxStale = 60 * 60 * 24 * 28
+//                response.newBuilder()
+//                    .header("Cache-Control", "public, only-if-cached, max-stale=" + maxStale)
+//                    .removeHeader("Pragma")
+//                    .build()
+//                return@Interceptor response
+//            }
+//
+//            Logger.e("request.url()${request.url().toString()}")
+//            response
         }
     }
 
@@ -111,7 +131,7 @@ object RetrofitManager {
 
                     //设置 请求的缓存的大小跟位置
                     val cacheFile = File(MyApplication.context.cacheDir, "cache")
-                    Logger.e(cacheFile.absolutePath)
+//                    Logger.e(cacheFile.absolutePath)
                     val cache = Cache(cacheFile, 1024 * 1024 * 50) //50Mb 缓存的大小
 
                     client = OkHttpClient.Builder()
@@ -125,7 +145,6 @@ object RetrofitManager {
                         .readTimeout(60L, TimeUnit.SECONDS)
                         .writeTimeout(60L, TimeUnit.SECONDS)
                         .build()
-
                     // 获取retrofit的实例
                     retrofit = Retrofit.Builder()
                         .baseUrl(UriConstant.BASE_URL_MINGBAI)
