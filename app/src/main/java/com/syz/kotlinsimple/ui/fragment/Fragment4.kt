@@ -2,10 +2,12 @@ package com.syz.kotlinsimple.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import com.orhanobut.logger.Logger
 import com.syz.kotlinsimple.R
 import com.syz.kotlinsimple.base.BaseFragment
 import com.syz.kotlinsimple.ui.activity.ActCustom
+import com.syz.kotlinsimple.ui.activity.ActHandler
 import com.syz.kotlinsimple.ui.activity.ActMine1
 import kotlinx.android.synthetic.main.act_book.*
 import java.util.*
@@ -39,10 +41,14 @@ class Fragment4 : BaseFragment() {
         customView.setOnClickListener {
             startActivity(Intent(context, ActCustom::class.java))
         }
+        handlerTest.setOnClickListener {
+            startActivity(Intent(context, ActHandler::class.java))
+        }
     }
 
     override fun lazyLoad() {
         val date = Date()
         Logger.e("Fragment4：当前事件：${date.minutes}分${date.seconds}秒")
     }
+
 }

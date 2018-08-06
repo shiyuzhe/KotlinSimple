@@ -47,6 +47,8 @@
             android:name=".ui.activity.ActMine1"
             android:hardwareAccelerated="true" />
         <activity android:name=".ui.activity.ActCustom"/>
+        <activity android:name=".ui.activity.ActMine1" />
+        <activity android:name=".ui.activity.ActHandler"></activity>
     </application>
 
 </manifest>
