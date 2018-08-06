@@ -43,7 +43,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.ActMine1"></activity>
+        <activity
+            android:name=".ui.activity.ActMine1"
+            android:hardwareAccelerated="true" />
+        <activity android:name=".ui.activity.ActCustom"/>
     </application>
 
 </manifest>

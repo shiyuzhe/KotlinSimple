@@ -48,4 +48,5 @@ dependencies {
 
     implementation project(':LRecyclerview_library')
     implementation project(':multiple-status-view')
+
 }
