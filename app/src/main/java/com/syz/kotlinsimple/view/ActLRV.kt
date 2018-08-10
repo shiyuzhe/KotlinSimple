@@ -8,7 +8,9 @@ import android.widget.TextView
 import com.github.jdsjlzx.recyclerview.LRecyclerViewAdapter
 import com.syz.kotlinsimple.R
 import com.syz.kotlinsimple.base.BaseActivity
+import com.syz.kotlinsimple.readString
 import kotlinx.android.synthetic.main.act_lrv.*
+import java.io.File
 import java.util.ArrayList
 
 class ActLRV : BaseActivity() {
@@ -24,6 +26,9 @@ class ActLRV : BaseActivity() {
         for (i in 0..19) {
             strs.add("str$i")
         }
+        val file = File("asd")
+        file.readString("sssss")
+//        FilesKt.readString("sdf");
     }
 
     override fun initView() {

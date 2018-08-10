@@ -30,6 +30,16 @@
         android:text="TextView" />
 
     <TextView
+        android:id="@+id/customView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/actTwo"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:padding="40dp"
+        android:text="CustomView" />
+
+    <TextView
         android:id="@+id/handlerTest"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

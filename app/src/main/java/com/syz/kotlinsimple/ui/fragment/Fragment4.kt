@@ -6,6 +6,7 @@ import android.os.Handler
 import com.orhanobut.logger.Logger
 import com.syz.kotlinsimple.R
 import com.syz.kotlinsimple.base.BaseFragment
+import com.syz.kotlinsimple.ui.activity.ActCustom
 import com.syz.kotlinsimple.ui.activity.ActHandler
 import com.syz.kotlinsimple.ui.activity.ActMine1
 import kotlinx.android.synthetic.main.act_book.*
@@ -36,6 +37,9 @@ class Fragment4 : BaseFragment() {
         textView2.text = mTitle
         textView2.setOnClickListener {
             startActivity(Intent(context, ActMine1::class.java))
+        }
+        customView.setOnClickListener {
+            startActivity(Intent(context, ActCustom::class.java))
         }
         handlerTest.setOnClickListener {
 
