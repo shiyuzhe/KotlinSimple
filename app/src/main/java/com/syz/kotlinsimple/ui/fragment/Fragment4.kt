@@ -38,6 +38,7 @@ class Fragment4 : BaseFragment() {
             startActivity(Intent(context, ActMine1::class.java))
         }
         handlerTest.setOnClickListener {
+
             startActivity(Intent(context, ActHandler::class.java))
         }
     }
