@@ -14,7 +14,7 @@ import android.support.annotation.RequiresApi
  * WeChat:18091664559
  * Description:
  */
-class CustomView : View {
+class CanvasAndPaint : View {
 
     val paint = Paint()
 

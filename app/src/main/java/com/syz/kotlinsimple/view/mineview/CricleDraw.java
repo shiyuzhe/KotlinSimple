@@ -1,4 +1,4 @@
-package com.syz.kotlinsimple.view;
+package com.syz.kotlinsimple.view.mineview;
 
 import android.content.Context;
 import android.graphics.Canvas;
